@@ -5,21 +5,21 @@
   <title></title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="css/style.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
   <title>Calculadora Conjuntos</title>
 </head>
 
-<body>
+<body class="bg-dark">
   <header>
     {% include 'components/_navbar.html' %}
   </header>
-  <main>
+  <main style="min-width: 200px; max-width: 800px; height: auto; width:90%; margin: 0 auto">
     {% block content %}
     {% endblock %}
   </main>
-  <footer>
+  <footer  class="d-flex flex-column bg-primary" style="height:64px; position: absolute; bottom: 0; width:100%; min-width: 288px;">
+    {% include 'components/_footer.html' %}
   </footer>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
