@@ -1,0 +1,48 @@
+* {
+  box-sizing: border-box;
+  padding:0;
+  margin:0;
+}
+
+body {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between
+}
+
+main {
+  width: 100%;
+  height: auto;
+}
+
+.form-container {
+  width: 90%;
+  margin: 0 auto;
+  min-width: 252px;
+  max-width: 800px;
+}
+
+.set-form {
+  height: 120px;
+  margin-bottom: 8px
+}
+
+footer {
+  height: 64px;
+}
+
+footer section {
+  height: 100%
+}
+
+footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+footer section ul li a {
+  text-decoration: none;
+}

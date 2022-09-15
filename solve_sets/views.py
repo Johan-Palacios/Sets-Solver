@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 def home(request):
-   return render(request, 'home.html')
+   return render(request, 'components/_setform.html')
 
 def sets(request):
    operation = request.GET.get('sets')
