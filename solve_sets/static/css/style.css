@@ -30,6 +30,11 @@ main .form-container {
   max-width: 800px;
 }
 
+main .sets_solved {
+  width: 100%;
+  text-align: center;
+}
+
 main div form label textarea {
   min-height: 126px;
   max-height: 500px;
