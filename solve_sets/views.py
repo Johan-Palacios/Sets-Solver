@@ -3,7 +3,6 @@ from django.shortcuts import render
 def home(request):
     return render(request, 'components/_setform.html')
 
-
 def sets(request):
     sets = request.GET.get('sets')
     solve_sets(str(sets))
