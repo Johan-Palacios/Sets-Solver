@@ -31,7 +31,7 @@ def item_to_lists(sets: str) -> list:
     return [str(set) for set in sets.split()]
 
 
-def append_set(elements: str):
+def append_set(elements: str) -> set:
     return set(str(element) for element in elements)
 
 
@@ -43,7 +43,9 @@ def validate_sets(sets: list):
                 valid_sets.append(
                     {
                         "setName": matches.group(1),
-                        "setValue": item_to_lists(matches.group(2)),
+                        "setValue": [
+                            str(value) for value in matches.group(2).split(",")
+                        ],
                     }
                 )
             except:
@@ -63,4 +65,4 @@ def operate_set(sets: list):
     for set in sets:
         set_name = str(set["setName"])
         set_value = append_set(set["setValue"])
-        print(f"{set_name} = {set_value}")
+        print(set_value)
