@@ -1,5 +1,7 @@
 from django.shortcuts import render
 import re
+from matplotlib import pyplot as plt
+from matplotlib_venn import venn2
 
 
 def home(request):
@@ -9,8 +11,10 @@ def home(request):
 def sets(request):
     sets = request.GET.get("sets")
     operation = request.GET.get("sets_operation")
-    solve_sets(str(sets), str(operation))
-    return render(request, "sets.html", {"set_solved": sets})
+    sets, operation =solve_sets(str(sets), str(operation))
+    venn = venn2([set(['A', 'B', 'C', 'D']), set(['D', 'E', 'F'])])
+    venn_show = plt.show()
+    return render(request, "sets.html", {"set_solved": sets + operation, "set_venn": venn_show})
 
 
 def solve_sets(sets: str, operation: str):
@@ -21,7 +25,7 @@ def solve_sets(sets: str, operation: str):
     list_sets = validate_sets(list_sets)
     list_operations = validate_operation(list_operations)
     valid_sets, valid_operation = operate_set(list_sets, list_operations)
-    print(valid_sets, valid_operation)
+    return (valid_sets, valid_operation)
 
 
 def format_sets(sets: str) -> str:
@@ -31,20 +35,15 @@ def format_sets(sets: str) -> str:
 def item_to_lists(sets: str, param=None) -> list:
     return [str(set) for set in sets.split(param)]
 
-
-def append_set(elements: list) -> set:
-    return set(str(element) for element in elements)
-
-
 def validate_sets(sets: list):
     valid_sets = []
-    for set in sets:
-        if matches := re.search(r"^([A-TV-Z])=\{(.+)+\}$", set):
+    for set_item in sets:
+        if matches := re.search(r"^([A-TV-Z])=\{(.+)+\}$", set_item):
             try:
                 valid_sets.append(
                     {
                         "setName": matches.group(1),
-                        "setValue": append_set(item_to_lists(matches.group(2), ",")),
+                        "setValue": set(item_to_lists(matches.group(2), ",")),
                     }
                 )
             except:
@@ -63,9 +62,9 @@ def validate_operation(operations: list) -> list:
 def operate_set(sets: list, operations: list):
     operable_sets = []
     correct_operations = []
-    for set in sets:
-        set_name = str(set["setName"])
-        set_value = set["setValue"]
+    for set_item in sets:
+        set_name = str(set_item["setName"])
+        set_value = set_item["setValue"]
         try:
             exec(f"{set_name} = set_value")
             operable_sets.append({"set": set_name, "setValue": set_value })
