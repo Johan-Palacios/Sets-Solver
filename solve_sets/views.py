@@ -20,7 +20,8 @@ def solve_sets(sets: str, operation: str):
     list_operations = item_to_lists(operation)
     list_sets = validate_sets(list_sets)
     list_operations = validate_operation(list_operations)
-    operate_set(list_sets, list_operations)
+    valid_sets, valid_operation = operate_set(list_sets, list_operations)
+    print(valid_sets, valid_operation)
 
 
 def format_sets(sets: str) -> str:
@@ -31,7 +32,7 @@ def item_to_lists(sets: str, param=None) -> list:
     return [str(set) for set in sets.split(param)]
 
 
-def append_set(elements: str) -> set:
+def append_set(elements: list) -> set:
     return set(str(element) for element in elements)
 
 
@@ -43,7 +44,7 @@ def validate_sets(sets: list):
                 valid_sets.append(
                     {
                         "setName": matches.group(1),
-                        "setValue": item_to_lists(matches.group(2), ","),
+                        "setValue": append_set(item_to_lists(matches.group(2), ",")),
                     }
                 )
             except:
@@ -64,20 +65,22 @@ def operate_set(sets: list, operations: list):
     correct_operations = []
     for set in sets:
         set_name = str(set["setName"])
-        set_value = append_set(set["setValue"])
+        set_value = set["setValue"]
         try:
-            operable_sets.append({"set": exec(f"{set_name} = set_value")})
+            exec(f"{set_name} = set_value")
+            operable_sets.append({"set": set_name, "setValue": set_value })
         except:
             pass
     for operation in operations:
         try:
             correct_operations.append(
-                {"operation": operation, "resut": exec(f"print({operation})")}
+                {"operation": operation, "result": sorted(eval(operation))}
             )
         except:
             correct_operations.append(
                 {
                     "operation": operation,
-                    "resut": "Error al operar, verifique su operación",
+                    "result": "Error al operar, verifique su operación",
                 }
             )
+    return operable_sets, correct_operations
