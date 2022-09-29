@@ -32,6 +32,10 @@ main .form-container {
 
 main .sets_solved {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
   text-align: center;
 }
 
@@ -40,9 +44,31 @@ main div form label textarea {
   max-height: 500px;
 }
 
+main div p {
+  display: inline-block;
+  width: 85%;
+  max-width: 800px;
+  min-width: 250px;
+}
 .set-form {
   height: 120px;
   margin-bottom: 8px
+}
+
+main div figure {
+  width: 90%;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  align-items: center;
+  min-width: 250px;
+  min-height: 400px;
+  max-width: 550px;
+}
+
+.set_figure {
+  width: 95%;
+  height: 80%;
 }
 
 footer {

@@ -1,7 +1,10 @@
 from django.shortcuts import render
 import re
+import io
+import urllib.parse, base64
 from matplotlib import pyplot as plt
 from matplotlib_venn import venn2
+from sympy import FiniteSet
 
 
 def home(request):
@@ -12,10 +15,21 @@ def sets(request):
     sets = request.GET.get("sets")
     operation = request.GET.get("sets_operation")
     sets, operation =solve_sets(str(sets), str(operation))
-    venn = venn2([set(['A', 'B', 'C', 'D']), set(['D', 'E', 'F'])])
-    venn_show = plt.show()
-    return render(request, "sets.html", {"set_solved": sets + operation, "set_venn": venn_show})
+    A = sets[0]["setValue"]
+    B = sets[1]["setValue"]
+    A_label = sets[0]["setName"]
+    B_label = sets[1]["setName"]
+    set_venn = graph_venn2(A,B,A_label, B_label)
+    return render(request, "sets.html", {"set_solved": sets + operation, "set_venn": set_venn})
 
+def graph_venn2(A:set, B:set, A_label: str, B_label: str) -> str:
+    venn2((A,B),(A_label, B_label))
+    plt.gcf()
+    buf = io.BytesIO()
+    plt.savefig(buf, format='png')
+    buf.seek(0)
+    string = base64.b64encode(buf.read())
+    return urllib.parse.quote(string)
 
 def solve_sets(sets: str, operation: str):
     sets = format_sets(sets)
@@ -54,7 +68,7 @@ def validate_sets(sets: list):
 def validate_operation(operations: list) -> list:
     valid_operations = []
     for operation in operations:
-        if re.search(r"^([A-TV-Z\-|&\(\)])+$", operation):
+        if re.search(r"^([A-TV-Z\-|\(\)&])+$", operation):
             valid_operations.append(operation)
     return valid_operations
 
@@ -67,7 +81,7 @@ def operate_set(sets: list, operations: list):
         set_value = set_item["setValue"]
         try:
             exec(f"{set_name} = set_value")
-            operable_sets.append({"set": set_name, "setValue": set_value })
+            operable_sets.append({"setName": set_name, "setValue": set_value })
         except:
             pass
     for operation in operations:

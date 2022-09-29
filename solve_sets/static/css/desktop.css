@@ -1,0 +1,8 @@
+@media (min-width: 800px){
+  main div figure {
+    width: 90%;
+    min-width: 700px;
+    max-width: 750px;
+    min-height: 500px;
+  }
+}
