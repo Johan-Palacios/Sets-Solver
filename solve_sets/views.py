@@ -4,7 +4,8 @@ import io
 import urllib.parse, base64
 from matplotlib import pyplot as plt
 from matplotlib_venn import venn2
-from sympy import FiniteSet
+import os
+# from sympy import FiniteSet
 
 
 def home(request):
@@ -19,17 +20,42 @@ def sets(request):
     B = sets[1]["setValue"]
     A_label = sets[0]["setName"]
     B_label = sets[1]["setName"]
-    set_venn = graph_venn2(A,B,A_label, B_label)
+    v = None
+    set_venn = None
+    v = graph_venn2(A,B,A_label, B_label)
+    set_venn = render_venn(v)
     return render(request, "sets.html", {"set_solved": sets + operation, "set_venn": set_venn})
 
-def graph_venn2(A:set, B:set, A_label: str, B_label: str) -> str:
-    venn2((A,B),(A_label, B_label))
-    plt.gcf()
-    buf = io.BytesIO()
-    plt.savefig(buf, format='png')
-    buf.seek(0)
-    string = base64.b64encode(buf.read())
-    return urllib.parse.quote(string)
+
+def render_venn(v):
+    plt.get(v)
+    data = io.BytesIO()
+    plt.savefig(data, format='png')
+    b64 = base64.b64encode(data.getvalue()).decode()
+    data.flush()
+    data.seek(0)
+    plt.close()
+    return b64
+
+def graph_venn2(A:set, B:set, A_label: str, B_label: str):
+    v = venn2((A,B),(A_label, B_label), alpha=0.4)
+    labels = [[A-B], [A&B], [B-A]]
+    if labels[1] == [set()]:
+        v.get_label_by_id('01').set_text(str(sorted(labels[2])))
+        v.get_label_by_id('10').set_text(str(sorted(labels[0])))
+    elif labels[2] == [set()]:
+        v.get_label_by_id('11').set_text(str(sorted(labels[1])))
+        v.get_label_by_id('10').set_text(str(sorted(labels[0])))
+        v.get_label_by_id('01').set_text(str(""))
+    elif labels[0] == [set()]:
+        v.get_label_by_id('01').set_text(str(sorted(labels[2])))
+        v.get_label_by_id('11').set_text(str(sorted(labels[1])))
+        v.get_label_by_id('10').set_text(str(""))
+    else:
+        v.get_label_by_id('10').set_text(str(sorted(labels[0])))
+        v.get_label_by_id('11').set_text(str(sorted(labels[1])))
+        v.get_label_by_id('01').set_text(str(sorted(labels[2])))
+    return v
 
 def solve_sets(sets: str, operation: str):
     sets = format_sets(sets)

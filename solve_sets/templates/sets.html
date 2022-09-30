@@ -2,7 +2,9 @@
 <div class="sets_solved">
     <p class="text-white">{{ set_solved }}</p>
     <figure>
-        <img class="set_figure" src="data:image/png;base64,{{ set_venn }}">
+        <picture>
+            <img class="set_figure" src="data:image/png;base64,{{ set_venn|safe }}">
+        </picture>
     </figure>
 </div>
 {% endblock %}

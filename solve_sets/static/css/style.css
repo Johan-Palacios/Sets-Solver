@@ -20,6 +20,7 @@ header nav {
 main {
   width: 100%;
   height: auto;
+  overflow-y: scroll;
 }
 
 main .form-container {
@@ -61,19 +62,18 @@ main div figure {
   align-self: center;
   justify-content: center;
   align-items: center;
-  min-width: 250px;
-  min-height: 400px;
-  max-width: 550px;
+  min-width: 252px;
+  max-width: 500px;
 }
 
 .set_figure {
-  width: 95%;
-  height: 80%;
+  width: 90%;
+  height: 90%;
 }
 
 footer {
-  height: 64px;
-  min-height: 64px;
+  height: 42px;
+  min-height: 42px;
   width: 100%;
 }
 
@@ -89,4 +89,11 @@ footer ul {
 
 footer section ul li a {
   text-decoration: none;
+}
+
+::-webkit-scrollbar {
+  background-color: #d6dee1;
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
 }

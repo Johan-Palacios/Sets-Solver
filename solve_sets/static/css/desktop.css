@@ -1,8 +1,22 @@
 @media (min-width: 800px){
+  main {
+    overflow-y: hidden;
+  }
+  main .sets_solved {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+  }
+  main div p {
+    width: 50%;
+    margin: 0 12px;
+  }
   main div figure {
-    width: 90%;
-    min-width: 700px;
-    max-width: 750px;
-    min-height: 500px;
+    width: 50%;
+    height: 100%;
+    margin: 0;
+    max-width: 600px;
+    justify-content: center;
+    align-items: center;
   }
 }
