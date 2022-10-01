@@ -7,9 +7,16 @@
     justify-content: space-around;
     align-items: center;
   }
-  main div p {
+  main div article {
     width: 50%;
-    margin: 0 12px;
+  }
+  main div article section p {
+    width: 100%;
+    margin: 2px 0;
+    text-align: left;
+  }
+  main div article section h3 {
+    text-align: left;
   }
   main div figure {
     width: 50%;

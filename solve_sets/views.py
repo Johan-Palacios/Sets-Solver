@@ -1,12 +1,9 @@
 from django.shortcuts import render
 import re
 import io
-import urllib.parse, base64
+import base64
 from matplotlib import pyplot as plt
 from matplotlib_venn import venn2
-import os
-# from sympy import FiniteSet
-
 
 def home(request):
     return render(request, "components/_setform.html")
@@ -16,16 +13,11 @@ def sets(request):
     sets = request.GET.get("sets")
     operation = request.GET.get("sets_operation")
     sets, operation =solve_sets(str(sets), str(operation))
-    A = sets[0]["setValue"]
-    B = sets[1]["setValue"]
-    A_label = sets[0]["setName"]
-    B_label = sets[1]["setName"]
-    v = None
-    set_venn = None
-    v = graph_venn2(A,B,A_label, B_label)
-    set_venn = render_venn(v)
-    return render(request, "sets.html", {"set_solved": sets + operation, "set_venn": set_venn})
+    set_venn = graph_venn(sets)
+    return render(request, "sets.html", {"set_solved": sets,"set_operations": operation, "set_venn": set_venn})
 
+def is_renderable(sets_number: int):
+    return sets_number == 2 or sets_number == 3
 
 def render_venn(v):
     plt.get(v)
@@ -38,24 +30,38 @@ def render_venn(v):
     return b64
 
 def graph_venn2(A:set, B:set, A_label: str, B_label: str):
-    v = venn2((A,B),(A_label, B_label), alpha=0.4)
+    v = venn2(([A,B]),(A_label, B_label), alpha=0.4)
     labels = [[A-B], [A&B], [B-A]]
+    left_venn = v.get_label_by_id('01').set_text
+    middle_venn = v.get_label_by_id('11').set_text
+    righ_venn = v.get_label_by_id('10').set_text
     if labels[1] == [set()]:
-        v.get_label_by_id('01').set_text(str(sorted(labels[2])))
-        v.get_label_by_id('10').set_text(str(sorted(labels[0])))
+        left_venn(str(sorted(labels[2])))
+        righ_venn(str(sorted(labels[0])))
     elif labels[2] == [set()]:
-        v.get_label_by_id('11').set_text(str(sorted(labels[1])))
-        v.get_label_by_id('10').set_text(str(sorted(labels[0])))
-        v.get_label_by_id('01').set_text(str(""))
+        middle_venn(str(sorted(labels[1])))
+        righ_venn(str(sorted(labels[0])))
+        left_venn(str(""))
     elif labels[0] == [set()]:
-        v.get_label_by_id('01').set_text(str(sorted(labels[2])))
-        v.get_label_by_id('11').set_text(str(sorted(labels[1])))
-        v.get_label_by_id('10').set_text(str(""))
+        left_venn(str(sorted(labels[2])))
+        middle_venn(str(sorted(labels[1])))
+        righ_venn(str(""))
     else:
-        v.get_label_by_id('10').set_text(str(sorted(labels[0])))
-        v.get_label_by_id('11').set_text(str(sorted(labels[1])))
-        v.get_label_by_id('01').set_text(str(sorted(labels[2])))
+        righ_venn(str(sorted(labels[0])))
+        middle_venn(str(sorted(labels[1])))
+        left_venn(str(sorted(labels[2])))
+    plt.title(f"Diagrama entre {A_label} y {B_label}")
     return v
+
+def graph_venn(sets):
+    if (is_renderable(len(sets))):
+        if len(sets) == 2:
+            A = sets[0]["setValue"]
+            B = sets[1]["setValue"]
+            A_label = sets[0]["setName"]
+            B_label = sets[1]["setName"]
+            v = graph_venn2(A,B,A_label, B_label)
+            return render_venn(v)
 
 def solve_sets(sets: str, operation: str):
     sets = format_sets(sets)

@@ -40,17 +40,27 @@ main .sets_solved {
   text-align: center;
 }
 
+main div {
+  padding: 0 24px;
+}
+
 main div form label textarea {
   min-height: 126px;
   max-height: 500px;
 }
 
-main div p {
+main div article section p {
   display: inline-block;
-  width: 85%;
+  width: 100%;
   max-width: 800px;
   min-width: 250px;
+  text-align: center;
 }
+
+main div article section h3 {
+  text-align: center;
+}
+
 .set-form {
   height: 120px;
   margin-bottom: 8px
@@ -91,6 +101,12 @@ footer section ul li a {
   text-decoration: none;
 }
 
+::-webkit-scrollbar-thumb {
+  background-color: #3f474f;
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
 ::-webkit-scrollbar {
   background-color: #d6dee1;
   border-radius: 20px;

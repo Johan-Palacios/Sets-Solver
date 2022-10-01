@@ -1,6 +1,19 @@
 {% extends 'layout.html' %} {% block content %}
 <div class="sets_solved">
-    <p class="text-white">{{ set_solved }}</p>
+    <article class="sets_info">
+        <section>
+            <h3 class="text-white">Serie de conjuntos</h3>
+            {% for set_item in set_solved %}
+            <p class="text-white">{{ set_item.setName }} = {{ set_item.setValue }}</p>
+            {% endfor %}
+        </section>
+        <section>
+            <h3 class="text-white">Operaciones</h3>
+            {% for operation in set_operations  %}
+            <p class="text-white">{{ operation.operation }} = {{ operation.result }}</p>
+            {% endfor %}
+        </section>
+    </article>
     <figure>
         <picture>
             <img class="set_figure" src="data:image/png;base64,{{ set_venn|safe }}">
