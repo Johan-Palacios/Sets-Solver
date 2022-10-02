@@ -1,6 +1,13 @@
 @media (min-width: 800px){
   main {
-    overflow-y: hidden;
+    overflow-y:hidden;
+  }
+  main div article {
+    height: 90%;
+  }
+  main div article {
+    height: 100%;
+    overflow-y: scroll
   }
   main .sets_solved {
     flex-direction: row;
@@ -19,6 +26,7 @@
     text-align: left;
   }
   main div figure {
+    position: relative;
     width: 50%;
     height: 100%;
     margin: 0;

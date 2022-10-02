@@ -20,7 +20,6 @@ header nav {
 main {
   width: 100%;
   height: auto;
-  overflow-y: scroll;
 }
 
 main .form-container {
@@ -41,6 +40,7 @@ main .sets_solved {
 }
 
 main div {
+  height: 100%;
   padding: 0 24px;
 }
 
