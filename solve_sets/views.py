@@ -15,10 +15,11 @@ def sets(request):
     operation = request.GET.get("sets_operation")
     sets, operation = solve_sets(str(sets), str(operation))
     set_venn = graph_venn(sets)
+    renderable = is_renderable(len(sets))
     return render(
         request,
         "sets.html",
-        {"set_solved": sets, "set_operations": operation, "set_venn": set_venn},
+        {"set_solved": sets, "set_operations": operation, "set_venn": set_venn, "renderable":renderable},
     )
 
 

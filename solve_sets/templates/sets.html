@@ -19,7 +19,13 @@
     </article>
     <figure>
         <picture>
-            <img class="set_figure" src="data:image/png;base64,{{ set_venn|safe }}">
+            {% if renderable %}
+                <img class="set_figure" src="data:image/png;base64,{{ set_venn|safe }}">
+            {% else  %}
+                <img class="set_figure" src="https://somoskudasai.com/wp-content/uploads/2020/09/portada_rezero-19.jpg">
+                <figcaption class="text-white">Solo pueden renderizarse diagramas de 2 o 3 conjuntos</figcaption>
+            {% endif %}
+
         </picture>
     </figure>
 </div>
