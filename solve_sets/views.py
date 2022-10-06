@@ -22,10 +22,14 @@ def sets(request):
     )
 
 
+# @param {sets_number}: number of sets
+# @returns Bool
 def is_renderable(sets_number: int):
     return sets_number == 2 or sets_number == 3
 
 
+# @param {v}: Venn Diagram
+# @returns: String base64, format png of Venn Diagram
 def render_venn(v):
     plt.get(v)
     data = io.BytesIO()
@@ -36,7 +40,11 @@ def render_venn(v):
     plt.close()
     return b64
 
-
+# @param {A}: set
+# @param {B}: set
+# @param {a_label}: Set A name
+# @param {b_label}: Set B name
+# @returns: matiplot Venn diagram
 def graph_venn2(A: set, B: set, a_label: str, b_label: str):
     v = venn2(([A, B]), (a_label, b_label), alpha=0.4)
     venn_data = [
@@ -48,7 +56,13 @@ def graph_venn2(A: set, B: set, a_label: str, b_label: str):
     plt.title(f"Diagrama entre {a_label} y {b_label}")
     return v
 
-
+# @param {A}: set
+# @param {B}: set
+# @param {C}: set
+# @param {a_label}: Set A name
+# @param {b_label}: Set B name
+# @param {c_label}: Set C Name
+# @returns: matiplot Venn diagram
 def graph_venn3(A: set, B: set, C: set, a_label: str, b_label: str, c_label: str):
     v = venn3(((A, B, C)), (a_label, b_label, c_label), alpha=0.4)
     venn_data = [
@@ -74,6 +88,8 @@ def set_text_venn(data: list, v):
     return v
 
 
+# @param {sets}: group of sets
+# @returns a Graphical Venn
 def graph_venn(sets):
     if is_renderable(len(sets)):
         if len(sets) == 2:
@@ -96,6 +112,9 @@ def graph_venn(sets):
             return render_venn(v)
 
 
+# @param {sets}: string of sets
+# @param {operation}: string of operations
+# @returns valid operations and sets
 def solve_sets(sets: str, operation: str):
     sets = format_sets(sets)
     operation = format_sets(operation)
@@ -107,14 +126,21 @@ def solve_sets(sets: str, operation: str):
     return (valid_sets, valid_operation)
 
 
+# @param {sets}: string of sets
+# @returns string of sets without spaces
 def format_sets(sets: str) -> str:
     return sets.replace(" ", "")
 
 
+# @param {sets}: string of sets
+# @param {param}: string to split data
+# @returns a list of elements
 def item_to_lists(sets: str, param=None) -> list:
     return [str(set) for set in sets.split(param)]
 
 
+# @param {sets}: list of sets
+# @returns a set() object
 def validate_sets(sets: list):
     valid_sets = []
     for set_item in sets:
@@ -131,6 +157,8 @@ def validate_sets(sets: list):
     return valid_sets
 
 
+# @param {operations}: list of operations
+# @returns valid list of operations
 def validate_operation(operations: list) -> list:
     valid_operations = []
     for operation in operations:
@@ -139,6 +167,9 @@ def validate_operation(operations: list) -> list:
     return valid_operations
 
 
+# @param {sets}: list of sets
+# @param {operations}: list of operations
+# @returns a list of operable sets and correct operations
 def operate_set(sets: list, operations: list):
     operable_sets = []
     correct_operations = []
