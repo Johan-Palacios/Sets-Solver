@@ -85,8 +85,10 @@ def graph_venn3(A: set, B: set, C: set, a_label: str, b_label: str, c_label: str
 # @param { v }: matiplot venn graph
 def set_text_venn(data: list, v):
     for item in data:
-        if v.get_label_by_id(item["id"]) != 0:
+        try:
             v.get_label_by_id(item["id"]).set_text(item["text_value"])
+        except:
+            pass
     return v
 
 
@@ -105,7 +107,7 @@ def graph_venn(sets):
         else:
             v = graph_venn3(
                 sets[0]["setValue"],
-                sets[1]["setvalue"],
+                sets[1]["setValue"],
                 sets[2]["setValue"],
                 sets[0]["setName"],
                 sets[1]["setName"],
