@@ -177,11 +177,12 @@ def validate_operation(operations: list) -> list:
 def operate_set(sets: list, operations: list):
     operable_sets = []
     correct_operations = []
+    set_value = None
     for set_item in sets:
         set_name = str(set_item["setName"])
         set_value = set_item["setValue"]
         try:
-            exec(f"{set_name} = set_value")
+            exec(f"{set_name} = set_value", {"__builtins__": None}, locals())
             operable_sets.append({"setName": set_name, "setValue": set_value})
         except:
             pass
@@ -197,4 +198,5 @@ def operate_set(sets: list, operations: list):
                     "result": "Error al operar, verifique su operación",
                 }
             )
+    exec("print(dir())")
     return operable_sets, correct_operations
