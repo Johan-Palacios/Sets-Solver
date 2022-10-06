@@ -40,6 +40,7 @@ def render_venn(v):
     plt.close()
     return b64
 
+
 # @param {A}: set
 # @param {B}: set
 # @param {a_label}: Set A name
@@ -55,6 +56,7 @@ def graph_venn2(A: set, B: set, a_label: str, b_label: str):
     v = set_text_venn(venn_data, v)
     plt.title(f"Diagrama entre {a_label} y {b_label}")
     return v
+
 
 # @param {A}: set
 # @param {B}: set
