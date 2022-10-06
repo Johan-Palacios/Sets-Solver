@@ -1,7 +1,7 @@
-from django.shortcuts import render
 import re
 import io
 import base64
+from django.shortcuts import render
 from matplotlib import pyplot as plt
 from matplotlib_venn import venn2, venn3
 
