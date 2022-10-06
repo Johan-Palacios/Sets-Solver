@@ -182,7 +182,7 @@ def operate_set(sets: list, operations: list):
         set_name = str(set_item["setName"])
         set_value = set_item["setValue"]
         try:
-            exec(f"{set_name} = set_value", {"__builtins__": None}, locals())
+            exec(f"{set_name} = set_value")
             operable_sets.append({"setName": set_name, "setValue": set_value})
         except:
             pass
@@ -198,5 +198,4 @@ def operate_set(sets: list, operations: list):
                     "result": "Error al operar, verifique su operación",
                 }
             )
-    exec("print(dir())")
     return operable_sets, correct_operations
