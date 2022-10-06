@@ -3,7 +3,7 @@ import re
 import io
 import base64
 from matplotlib import pyplot as plt
-from matplotlib_venn import venn2
+from matplotlib_venn import venn2, venn3
 
 def home(request):
     return render(request, "components/_setform.html")
@@ -29,38 +29,47 @@ def render_venn(v):
     plt.close()
     return b64
 
-def graph_venn2(A:set, B:set, A_label: str, B_label: str):
-    v = venn2(([A,B]),(A_label, B_label), alpha=0.4)
-    labels = [[A-B], [A&B], [B-A]]
-    left_venn = v.get_label_by_id('01').set_text
-    middle_venn = v.get_label_by_id('11').set_text
-    righ_venn = v.get_label_by_id('10').set_text
-    if labels[1] == [set()]:
-        left_venn(str(sorted(labels[2])))
-        righ_venn(str(sorted(labels[0])))
-    elif labels[2] == [set()]:
-        middle_venn(str(sorted(labels[1])))
-        righ_venn(str(sorted(labels[0])))
-        left_venn(str(""))
-    elif labels[0] == [set()]:
-        left_venn(str(sorted(labels[2])))
-        middle_venn(str(sorted(labels[1])))
-        righ_venn(str(""))
-    else:
-        righ_venn(str(sorted(labels[0])))
-        middle_venn(str(sorted(labels[1])))
-        left_venn(str(sorted(labels[2])))
-    plt.title(f"Diagrama entre {A_label} y {B_label}")
+def graph_venn2(A:set, B:set, a_label: str, b_label: str):
+    v = venn2(([A,B]),(a_label, b_label), alpha=0.4)
+    venn_data = [
+        {"id": "10", "text_value": "\n".join(sorted(A-B))},
+        {"id": "01", "text_value": "\n".join(sorted(B-A))},
+        {"id": "11", "text_value": "\n".join(sorted(A&B))}
+    ]
+    v = set_text_venn(venn_data, v)
+    plt.title(f"Diagrama entre {a_label} y {b_label}")
+    return v
+
+def graph_venn3(A:set, B:set,C:set, a_label: str, b_label: str,c_label:str ):
+    v = venn3(((A,B,C)),(a_label, b_label, c_label), alpha=0.4)
+    venn_data = [
+        {"id": '100', "text_value": "\n".join(sorted(A-B-C))},
+        {"id": '110', "text_value": "\n".join(sorted(A&B-C))},
+        {"id": '010', "text_value": "\n".join(sorted(B-C-A))},
+        {"id": '101', "text_value": "\n".join(sorted(A&C-B))},
+        {"id": '111', "text_value": "\n".join(sorted(A&B&C))},
+        {"id": '011', "text_value": "\n".join(sorted(B&C-A))},
+        {"id": '001', "text_value": "\n".join(sorted(C-B-A))}
+    ]
+    v = set_text_venn(venn_data, v)
+    plt.title(f"Diagrama de venn entre {a_label}, {b_label} y {c_label}")
+    return v
+
+# @param { data }: list of ID
+# @param { v }: matiplot venn graph
+def set_text_venn(data:list, v):
+    for item in data:
+        if v.get_label_by_id(item["id"]) != 0:
+            v.get_label_by_id(item["id"]).set_text(item["text_value"])
     return v
 
 def graph_venn(sets):
     if (is_renderable(len(sets))):
         if len(sets) == 2:
-            A = sets[0]["setValue"]
-            B = sets[1]["setValue"]
-            A_label = sets[0]["setName"]
-            B_label = sets[1]["setName"]
-            v = graph_venn2(A,B,A_label, B_label)
+            v = graph_venn2(sets[0]["setValue"],sets[1]["setValue"],sets[0]["setName"],sets[1]["setName"])
+            return render_venn(v)
+        else:
+            v = graph_venn3(sets[0]["setValue"],sets[1]["setvalue"],sets[2]["setValue"],sets[0]["setName"], sets[1]["setName"], sets[2]["setName"])
             return render_venn(v)
 
 def solve_sets(sets: str, operation: str):
