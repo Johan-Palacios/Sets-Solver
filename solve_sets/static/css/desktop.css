@@ -1,4 +1,4 @@
-@media (min-width: 800px){
+@media (min-width: 900px){
   main {
     overflow-y:hidden;
   }
@@ -14,10 +14,7 @@
     justify-content: space-around;
     align-items: center;
   }
-  main div article {
-    width: 50%;
-  }
-  main div article section p {
+  .set {
     width: 100%;
     margin: 2px 0;
     text-align: left;
@@ -25,13 +22,16 @@
   main div article section h3 {
     text-align: left;
   }
-  main div figure {
-    position: relative;
-    width: 50%;
-    height: 100%;
-    margin: 0;
-    max-width: 600px;
-    justify-content: center;
-    align-items: center;
+  .main__article {
+    text-align:left;
+  }
+  .section__container p {
+    margin: auto;
+  }
+  .venn__image {
+    width: 85%;
+    align-self: center;
+    margin: 0 20px;
+    min-width: 400px;
   }
 }

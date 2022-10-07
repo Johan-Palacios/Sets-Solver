@@ -1,4 +1,5 @@
 import re
+import ast
 import io
 import base64
 from django.shortcuts import render
@@ -9,6 +10,8 @@ from matplotlib_venn import venn2, venn3
 def home(request):
     return render(request, "components/_setform.html")
 
+def usage(request):
+    return render(request, "usage.html")
 
 def sets(request):
     sets = request.GET.get("sets")
@@ -38,6 +41,7 @@ def render_venn(v):
     b64 = base64.b64encode(data.getvalue()).decode()
     data.flush()
     data.seek(0)
+    plt.clf()
     plt.close()
     return b64
 
@@ -183,7 +187,8 @@ def operate_set(sets: list, operations: list):
         set_name = str(set_item["setName"])
         set_value = set_item["setValue"]
         try:
-            exec(f"{set_name} = set_value")
+            set_init = ast.parse(f"{set_name} = set_value")
+            exec(compile(set_init, filename="", mode="exec"))
             operable_sets.append({"setName": set_name, "setValue": set_value})
         except:
             pass

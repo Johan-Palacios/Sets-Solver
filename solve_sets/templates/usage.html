@@ -1,0 +1,34 @@
+{% extends 'layout.html' %} {% block content %}
+<article class="main__article text-white">
+    <section class="section__container">
+        <h1 class="article__title">Uso de la Calculadora de Conjuntos</h1>
+        <section>
+            <h2>Como declarar conjuntos</h2>
+            <p>El conjunto debe ser declarado como </p>
+            <code>A={1,2,3,4}&#10;B={1,4,5,6}</code>
+            <p>Y las operaciones como</p>
+            <code>A|B ó A-B</code>
+            <figure class="figure__container">
+                {% load static %}
+                <img src="{% static 'images/example.png' %}" alt="Sets Image" class="example__img">
+            </figure>
+        </section>
+        <section>
+            <h2>Operaciones Con Conjuntos</h2>
+            <p>Existen las siguientes operaciones</p>
+            <ul class="list__container">
+                <li>Union = | </li>
+                <li>Intersección = & </li>
+                <li>Diferencia = - </li>
+            </ul>
+        </section>
+        <section>
+            <h2>Renderizado de Conjuntos</h2>
+            <p>Solo es posible renderizar 2 y 3 conjuntos en el programa
+            por lo que al hacer un número de conjuntos fuera de este rango no será<nav>
+            mostrados en pantalla.</p>
+            <br>
+        </section>
+    </section>
+</article>
+{% endblock %}

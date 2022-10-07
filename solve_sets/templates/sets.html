@@ -1,32 +1,36 @@
 {% extends 'layout.html' %} {% block content %}
 <div class="sets_solved">
-    <article>
-        <hr>
-        <section class="sets_serie">
-            <h3 class="text-white">Serie de conjuntos</h3>
-            {% for set_item in set_solved %}
-                <p class="text-white">{{ set_item.setName }} = {{ set_item.setValue }}</p>
-            {% endfor %}
-        </section>
-        <hr>
-        <section>
-            <h3 class="text-white">Operaciones</h3>
-            {% for operation in set_operations  %}
-                <p class="text-white">{{ operation.operation }} = {{ operation.result }}</p>
-            {% endfor %}
-        </section>
-        <hr>
-    </article>
-    <figure>
+    <section class="venn__section__container">
+        <article>
+            <hr>
+            <section class="sets_serie">
+                <h3 class="text-white">Serie de conjuntos</h3>
+                {% for set_item in set_solved %}
+                    <p class="text-white set">{{ set_item.setName }} = {{ set_item.setValue }}</p>
+                {% endfor %}
+            </section>
+            <hr>
+            <section>
+                <h3 class="text-white">Operaciones</h3>
+                {% for operation in set_operations  %}
+                    <p class="text-white set">{{ operation.operation }} = {{ operation.result }}</p>
+                {% endfor %}
+            </section>
+            <hr>
+        </article>
+    </section>
+    <section class="venn__section__container">
+    <figure class="figure__container">
         <picture>
             {% if renderable %}
-                <img class="set_figure" src="data:image/png;base64,{{ set_venn|safe }}">
+                <img class="venn__image" src="data:image/png;base64,{{ set_venn|safe }}">
             {% else  %}
-                <img class="set_figure" src="https://somoskudasai.com/wp-content/uploads/2020/09/portada_rezero-19.jpg">
+                <img class="venn__image" src="https://somoskudasai.com/wp-content/uploads/2020/09/portada_rezero-19.jpg">
                 <figcaption class="text-white">Solo pueden renderizarse diagramas de 2 o 3 conjuntos</figcaption>
             {% endif %}
 
         </picture>
     </figure>
+    </section>
 </div>
 {% endblock %}
