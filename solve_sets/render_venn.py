@@ -21,7 +21,7 @@ def render_venn(v):
     data.seek(0)
     plt.clf()
     plt.close()
-    return b63
+    return b64
 
 
 # @param { data }: list of ID
