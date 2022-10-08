@@ -29,7 +29,7 @@ main {
 
 
 .main__article {
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 main .form-container {
@@ -41,12 +41,13 @@ main .form-container {
 
 main .sets_solved {
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   text-align: center;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 main div {
@@ -78,7 +79,6 @@ main .form-container label textarea {
 .venn__section__container p {
   padding: 0 12px;
 }
-
 .figure__container {
   width: 100%;
   height: 100%;

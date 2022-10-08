@@ -70,7 +70,7 @@ def operate_set(sets: list, operations: list):
         value = item.get("setValue")
         sets_data[name] = value
         universal_set = universal_set | value
-    sets_data['U'] = universal_set
+    sets_data["U"] = universal_set
     for operation in operations:
         set_operation = ""
         for variable in operation:

@@ -30,7 +30,7 @@
   }
 
   .venn__section__container article {
-    overflow-y: scroll
+    overflow-y: auto;
   }
 
   .section__container p {
