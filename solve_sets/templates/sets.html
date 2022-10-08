@@ -1,18 +1,18 @@
 {% extends 'layout.html' %} {% block content %}
 <div class="sets_solved">
-    <section class="venn__section__container sets__serie">
+    <section class="venn__section__container sets__container__info">
         <article>
             <hr>
             <section class="sets_serie">
-                <h3 class="text-white">Serie de conjuntos</h3>
+                <h3 class="text-white set__title">Serie de conjuntos</h3>
                 <p class="text-white set">U = {{ universal }}</p>
                 {% for set_item in set_solved %}
                 <p class="text-white set">{{ set_item.setName }} = {{ set_item.setValue }}</p>
                 {% endfor %}
             </section>
             <hr>
-            <section>
-                <h3 class="text-white">Operaciones</h3>
+            <section class="sets__operations">
+                <h3 class="text-white set__title">Operaciones</h3>
                 {% for operation in set_operations %}
                 <p class="text-white set">{{ operation.nameOperation }} = {{ operation.operationValue }}</p>
                 {% endfor %}

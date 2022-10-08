@@ -28,6 +28,10 @@ main {
 }
 
 
+main div {
+  height: 100%;
+}
+
 .main__article {
   overflow-y: auto;
 }
@@ -37,6 +41,11 @@ main .form-container {
   height: auto;
   min-width: 252px;
   max-width: 800px;
+}
+
+main .form-container label textarea {
+  min-height: 126px;
+  max-height: 500px;
 }
 
 main .sets_solved {
@@ -50,20 +59,14 @@ main .sets_solved {
   overflow-y: auto;
 }
 
-main div {
-  height: 100%;
-}
-
-main .form-container label textarea {
-  min-height: 126px;
-  max-height: 500px;
-}
-
 .set {
   display: inline-block;
   width: 100%;
-  max-width: 800px;
   text-align: center;
+}
+
+.set__title {
+  padding-left: 12px;
 }
 
 .set-form {
