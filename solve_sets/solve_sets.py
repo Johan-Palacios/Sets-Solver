@@ -12,8 +12,8 @@ def solve_sets(sets: str, operation: str):
     list_operations = item_to_lists(operation)
     list_sets = validate_sets(list_sets)
     list_operations = validate_operation(list_operations)
-    valid_operation = operate_set(list_sets, list_operations)
-    return (list_sets, valid_operation)
+    valid_operation, universal_set = operate_set(list_sets, list_operations)
+    return (list_sets, valid_operation, universal_set)
 
 
 # @param {sets}: string of sets
@@ -59,15 +59,18 @@ def validate_operation(operations: list) -> list:
 
 # @param {sets}: list of sets
 # @param {operations}: list of operations
-# @returns a list of operable sets and correct operations
+# @returns a list of operable sets and correct operations and universal set
 def operate_set(sets: list, operations: list):
     solved_operation = []
     set_operation = []
     sets_data = {}
+    universal_set = set([])
     for item in sets:
         name = item.get("setName")
         value = item.get("setValue")
         sets_data[name] = value
+        universal_set = universal_set | value
+    sets_data['U'] = universal_set
     for operation in operations:
         set_operation = ""
         for variable in operation:
@@ -89,7 +92,7 @@ def operate_set(sets: list, operations: list):
                     "operationValue": "Error: Verifique su operación",
                 }
             )
-    return solved_operation
+    return (solved_operation, universal_set)
 
 
 if __name__ == "__main__":
