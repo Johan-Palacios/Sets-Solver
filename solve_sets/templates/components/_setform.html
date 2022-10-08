@@ -2,14 +2,14 @@
 
 {% block content %}
 <div class="form-container">
-  <form action="{% url 'sets' %}" class="card card-body">
-    <label for="sets" class="form-label">
-        <textarea class="form-control set-form" name="sets" id="sets" placeholder="A={1,2,3,4}&#10;B={4,5,6}" required
-        autocomplete="off" spellcheck="false"></textarea>
-      <textarea class="form-control set-form" name="sets_operation" id="sets" placeholder="A-B&#10;A∪B" required
-        autocomplete="off" spellcheck="false" ></textarea>
-      <input type="submit" value="Calcular" class="btn btn-primary">
-    </label>
-  </form>
+    <form action="{% url 'sets' %}" class="card card-body">
+        <label for="sets" class="form-label">
+            <textarea class="form-control set-form" name="sets" id="sets" placeholder="A={1,2,3,4}&#10;B={4,5,6}"
+                required autocomplete="off" spellcheck="false"></textarea>
+            <textarea class="form-control set-form" name="sets_operation" id="sets" placeholder="A-B&#10;A∪B" required
+                autocomplete="off" spellcheck="false"></textarea>
+            <input type="submit" value="Calcular" class="btn btn-primary">
+        </label>
+    </form>
 </div>
 {% endblock %}

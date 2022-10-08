@@ -84,8 +84,7 @@ main .form-container label textarea {
   height: 100%;
   display: flex;
   align-self: center;
-  justify-content: center;
-  align-items: center;
+  justify-content: center; align-items: center;
 }
 
 .venn__image {
