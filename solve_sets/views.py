@@ -11,8 +11,10 @@ from matplotlib_venn import venn2, venn3
 def home(request):
     return render(request, "components/_setform.html")
 
+
 def usage(request):
     return render(request, "usage.html")
+
 
 def sets(request):
     sets = request.GET.get("sets")
@@ -23,7 +25,12 @@ def sets(request):
     return render(
         request,
         "sets.html",
-        {"set_solved": sets, "set_operations": operation, "set_venn": set_venn, "renderable":renderable},
+        {
+            "set_solved": sets,
+            "set_operations": operation,
+            "set_venn": set_venn,
+            "renderable": renderable,
+        },
     )
 
 
@@ -132,7 +139,7 @@ def solve_sets(sets: str, operation: str):
     list_operations = item_to_lists(operation)
     list_sets = validate_sets(list_sets)
     list_operations = validate_operation(list_operations)
-    valid_operation = new_operate_set(list_sets,list_operations)
+    valid_operation = new_operate_set(list_sets, list_operations)
     return (list_sets, valid_operation)
 
 
@@ -176,24 +183,37 @@ def validate_operation(operations: list) -> list:
             valid_operations.append(operation)
     return valid_operations
 
+
 # @param {sets}: list of sets
 # @param {operations}: list of operations
 # @returns a list of operable sets and correct operations
-def new_operate_set(sets:list, operations:list):
+def new_operate_set(sets: list, operations: list):
     solved_operation = []
     set_operation = []
     sets_data = {}
     for item in sets:
-        name = item.get('setName')
-        value = item.get('setValue')
+        name = item.get("setName")
+        value = item.get("setValue")
         sets_data[name] = value
     for operation in operations:
         set_operation = ""
         for variable in operation:
-            set_operation += str(sets_data.get(variable,variable))
+            set_operation += str(sets_data.get(variable, variable))
         try:
-            safe_set_operation = eval(compile(set_operation, filename="", mode="eval"),{},{})
-            solved_operation.append({"nameOperation": operation, "operationValue": sorted(safe_set_operation)})
+            safe_set_operation = eval(
+                compile(set_operation, filename="", mode="eval"), {}, {}
+            )
+            solved_operation.append(
+                {
+                    "nameOperation": operation,
+                    "operationValue": sorted(safe_set_operation),
+                }
+            )
         except:
-            solved_operation.append({"nameOperation": operation, "operationValue": "Error: Verifique su operación"})
+            solved_operation.append(
+                {
+                    "nameOperation": operation,
+                    "operationValue": "Error: Verifique su operación",
+                }
+            )
     return solved_operation
