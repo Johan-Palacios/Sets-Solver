@@ -1,6 +1,6 @@
 from django.shortcuts import render
-from solve_sets.render_venn import graph_venn, is_renderable
 from solve_sets.solve_sets import solve_sets
+from solve_sets.render_venn import graph_venn, is_renderable
 
 
 def home(request):
