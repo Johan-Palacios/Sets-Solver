@@ -1,37 +1,53 @@
-@media (min-width: 900px){
+@media (min-width: 800px){
   main {
     overflow-y:hidden;
   }
+
   main div article {
     height: 90%;
   }
-  main div article {
-    height: 100%;
-    overflow-y: scroll
-  }
+
   main .sets_solved {
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
+    overflow-y: hidden;
   }
+
   .set {
     width: 100%;
     margin: 2px 0;
     text-align: left;
   }
-  main div article section h3 {
-    text-align: left;
-  }
+
   .main__article {
     text-align:left;
   }
+
+  .venn__section__container {
+    width: 50%;
+    height: 100%;
+  }
+
+  .venn__section__container article {
+    overflow-y: scroll
+  }
+
   .section__container p {
     margin: auto;
   }
+
+  .sets__serie section h3 {
+    width: 100%;
+    display: inline-block;
+    text-align: left;
+    padding-left:12px
+  }
+
   .venn__image {
-    width: 85%;
+    width: 80%;
     align-self: center;
     margin: 0 20px;
-    min-width: 400px;
+    max-width: 700px;
   }
 }

@@ -27,6 +27,7 @@ main {
   overflow-y: hidden;
 }
 
+
 .main__article {
   overflow-y: scroll;
 }
@@ -42,17 +43,17 @@ main .sets_solved {
   width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   text-align: center;
+  overflow-y: scroll;
 }
 
 main div {
   height: 100%;
-  padding: 0 24px;
 }
 
-main div form label textarea {
+main .form-container label textarea {
   min-height: 126px;
   max-height: 500px;
 }
@@ -64,18 +65,18 @@ main div form label textarea {
   text-align: center;
 }
 
-main div article section h3 {
-  text-align: center;
-}
-
 .set-form {
   height: 120px;
   margin-bottom: 8px
 }
 
 .venn__section__container {
-  width: 50%;
-  height: 100%
+  width: 100%;
+  height: auto;
+}
+
+.venn__section__container p {
+  padding: 0 12px;
 }
 
 .figure__container {

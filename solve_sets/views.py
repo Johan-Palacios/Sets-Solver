@@ -1,3 +1,4 @@
+from operator import mod
 import re
 import ast
 import io
@@ -131,8 +132,8 @@ def solve_sets(sets: str, operation: str):
     list_operations = item_to_lists(operation)
     list_sets = validate_sets(list_sets)
     list_operations = validate_operation(list_operations)
-    valid_sets, valid_operation = operate_set(list_sets, list_operations)
-    return (valid_sets, valid_operation)
+    valid_operation = new_operate_set(list_sets,list_operations)
+    return (list_sets, valid_operation)
 
 
 # @param {sets}: string of sets
@@ -171,37 +172,28 @@ def validate_sets(sets: list):
 def validate_operation(operations: list) -> list:
     valid_operations = []
     for operation in operations:
-        if re.search(r"^([A-TV-Z\-|\(\)&])+$", operation):
+        if re.search(r"^([A-Z\-|\(\)&])+$", operation):
             valid_operations.append(operation)
     return valid_operations
-
 
 # @param {sets}: list of sets
 # @param {operations}: list of operations
 # @returns a list of operable sets and correct operations
-def operate_set(sets: list, operations: list):
-    operable_sets = []
-    correct_operations = []
-    set_value = None
-    for set_item in sets:
-        set_name = str(set_item["setName"])
-        set_value = set_item["setValue"]
-        try:
-            set_init = ast.parse(f"{set_name} = set_value")
-            exec(compile(set_init, filename="", mode="exec"))
-            operable_sets.append({"setName": set_name, "setValue": set_value})
-        except:
-            pass
+def new_operate_set(sets:list, operations:list):
+    solved_operation = []
+    set_operation = []
+    sets_data = {}
+    for item in sets:
+        name = item.get('setName')
+        value = item.get('setValue')
+        sets_data[name] = value
     for operation in operations:
+        set_operation = ""
+        for variable in operation:
+            set_operation += str(sets_data.get(variable,variable))
         try:
-            correct_operations.append(
-                {"operation": operation, "result": sorted(eval(operation))}
-            )
+            safe_set_operation = eval(compile(set_operation, filename="", mode="eval"),{},{})
+            solved_operation.append({"nameOperation": operation, "operationValue": sorted(safe_set_operation)})
         except:
-            correct_operations.append(
-                {
-                    "operation": operation,
-                    "result": "Error al operar, verifique su operación",
-                }
-            )
-    return operable_sets, correct_operations
+            solved_operation.append({"nameOperation": operation, "operationValue": "Error: Verifique su operación"})
+    return solved_operation

@@ -1,6 +1,6 @@
 {% extends 'layout.html' %} {% block content %}
 <div class="sets_solved">
-    <section class="venn__section__container">
+    <section class="venn__section__container sets__serie">
         <article>
             <hr>
             <section class="sets_serie">
@@ -13,7 +13,7 @@
             <section>
                 <h3 class="text-white">Operaciones</h3>
                 {% for operation in set_operations  %}
-                    <p class="text-white set">{{ operation.operation }} = {{ operation.result }}</p>
+                    <p class="text-white set">{{ operation.nameOperation }} = {{ operation.operationValue }}</p>
                 {% endfor %}
             </section>
             <hr>
