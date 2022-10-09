@@ -34,19 +34,19 @@ def create_windows_env():
         raise e
 
 
-def set_command(venv: str, install: str):
+def set_command(venv: str, install: str, env:str):
     if option == 1:
         create_env(venv)
     elif option == 2:
         install_dependences(install)
     elif option == 3:
-        write_environ()
+        write_environ(env)
     else:
         invalid()
 
-def write_environ():
+def write_environ(env:str):
     django_key = get_random_secret_key()
-    with open("./django_sets/.env","w") as file:
+    with open(env,"w") as file:
         file.write("SECRET_KEY=" + django_key + "\n" + "DEBUG=FALSE")
 
 def invalid():
@@ -56,11 +56,13 @@ def invalid():
 def build():
     if platform.system() in ["Linux", "Darwin"]:
         set_command(
-            "python3 -m venv venv", "python3 -m pip install -r requirements.txt"
+            "python3 -m venv venv", "python3 -m pip install -r requirements.txt",
+            "./django_sets/.env"
         )
     elif platform.system() == "Windows":
         set_command(
-            "python.exe -m venv venv", "python.exe -m pip install -r requirements.txt"
+            "python.exe -m venv venv", "python.exe -m pip install -r requirements.txt",
+            ".\\django_sets\\.env"
         )
     else:
         print("Plataforma No soportada")
