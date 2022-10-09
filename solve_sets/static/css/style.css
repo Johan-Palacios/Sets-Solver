@@ -91,9 +91,9 @@ main .sets_solved {
 }
 
 .venn__image {
-  width: 90%;
+  width: 70%;
   min-width: 252px;
-  max-width: 400px;
+  max-width: 360px;
   align-self: center;
 }
 
@@ -124,7 +124,7 @@ main .sets_solved {
   width: 80%;
   height: 80%;
   min-width: 120px;
-  max-width: 550px;
+  max-width: 360px;
 }
 
 .list__container {

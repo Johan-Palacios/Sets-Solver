@@ -26,11 +26,10 @@
                 {% if renderable %}
                 <img class="venn__image" src="data:image/png;base64,{{ set_venn|safe }}">
                 {% else %}
-                <img class="venn__image"
-                    src="https://somoskudasai.com/wp-content/uploads/2020/09/portada_rezero-19.jpg">
+                {% load static %}
+                <img class="venn__image" src="{% static 'images/error.png' %}">
                 <figcaption class="text-white">Solo pueden renderizarse diagramas de 2 o 3 conjuntos</figcaption>
                 {% endif %}
-
             </picture>
         </figure>
     </section>
