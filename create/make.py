@@ -2,7 +2,7 @@ import os
 import platform
 from django.core.management.utils import get_random_secret_key
 
-option = int(input("1.Crear entorno virtual\n2.Instalar dependencias\n--> "))
+option = int(input("1.Crear entorno virtual\n2.Instalar dependencias\n3.Crear .env\n--> "))
 
 
 def create_env(command: str):
@@ -39,6 +39,8 @@ def set_command(venv: str, install: str):
         create_env(venv)
     elif option == 2:
         install_dependences(install)
+    elif option == 3:
+        write_environ()
     else:
         invalid()
 
