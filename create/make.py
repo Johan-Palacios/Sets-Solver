@@ -2,7 +2,7 @@ import os
 import platform
 from django.core.management.utils import get_random_secret_key
 
-option = int(input("1.Crear entorno virtual\n2.Instalar dependencias\n3.Crear .env\n--> "))
+option = int(input("1.Crear entorno virtual\n2.Instalar dependencias\n3.Crear .env\nt--> "))
 
 
 def create_env(command: str):
@@ -46,7 +46,7 @@ def set_command(venv: str, install: str):
 
 def write_environ():
     django_key = get_random_secret_key()
-    with open("../django_sets/.env","w") as file:
+    with open("./django_sets/.env","w") as file:
         file.write("SECRET_KEY=" + django_key + "\n" + "DEBUG=FALSE")
 
 def invalid():
