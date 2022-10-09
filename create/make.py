@@ -18,7 +18,7 @@ def create_env(command: str):
 def install_dependences(command: str):
     try:
         print("Instalando dependencias")
-        os.system("")
+        os.system(command)
     except Exception as e:
         print("No es posible instalar las dependencias")
         raise e
