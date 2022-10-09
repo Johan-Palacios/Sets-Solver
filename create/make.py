@@ -1,6 +1,6 @@
 import os
 import platform
-
+from django.core.management.utils import get_random_secret_key
 
 option = int(input("1.Crear entorno virtual\n2.Instalar dependencias\n--> "))
 
@@ -42,6 +42,10 @@ def set_command(venv: str, install: str):
     else:
         invalid()
 
+def write_environ():
+    django_key = get_random_secret_key()
+    with open("../django_sets/.env","w") as file:
+        file.write("SECRET_KEY=" + django_key + "\n" + "DEBUG=FALSE")
 
 def invalid():
     print("Invalid option")
