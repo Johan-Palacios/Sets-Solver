@@ -12,6 +12,6 @@ Solucionador de conjuntos con [Python](https://www.python.org/ "Python"), [Djang
 
 ### Build Project 📦
 1. Clonar el repositorio
-2. Ejecutar el Makefile
+2. Ejecutar el make.py
 3. Ejecutar `python3 manage.py runserver` y abrir el enlace en el navegador 🌐
 4. y listo! Ahora Podras disfutar esta exelente aplicación. ✅
