@@ -12,8 +12,8 @@ def solve_sets(sets: str, operation: str):
     list_operations = item_to_lists(operation)
     list_sets = validate_sets(list_sets)
     list_operations = validate_operation(list_operations)
-    valid_operation, list_sets = operate_set(list_sets, list_operations)
-    return (list_sets, valid_operation)
+    valid_operation, list_sets, universal_set = operate_set(list_sets, list_operations)
+    return (list_sets, valid_operation, universal_set)
 
 
 # @param {sets}: string of sets
@@ -70,7 +70,7 @@ def simple_dict(sets: list):
         sets_data[name] = value
         universal_set = universal_set | value
     sets_data["U"] = universal_set
-    return sets_data
+    return sets_data, universal_set
 
 
 # @param sets_data simple dict
@@ -78,6 +78,8 @@ def simple_dict(sets: list):
 def complex_dict(sets_data: dict) -> list:
     list_sets = []
     for sets_name, sets_value in sets_data.items():
+        if sets_name == "U":
+            continue
         list_sets.append({"setName": str(sets_name), "setValue": sets_value})
     return list_sets
 
@@ -89,7 +91,7 @@ def operate_set(sets: list, operations: list):
     solved_operation = []
     set_operation = []
     sets_data = {}
-    sets_data = simple_dict(sets)
+    sets_data, universal_set = simple_dict(sets)
     list_sets = complex_dict(sets_data)
     for operation in operations:
         set_operation = ""
@@ -112,7 +114,7 @@ def operate_set(sets: list, operations: list):
                     "operationValue": "Error: Verifique su operación",
                 }
             )
-    return (solved_operation, list_sets)
+    return (solved_operation, list_sets, universal_set)
 
 
 if __name__ == "__main__":
