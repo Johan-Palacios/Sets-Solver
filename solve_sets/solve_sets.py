@@ -59,7 +59,7 @@ def validate_operation(operations: list) -> list:
 
 # @param Sets list
 # @return simple dict of sets
-def simple_dict(sets:list):
+def simple_dict(sets: list):
     sets_data = {}
     universal_set = set()
     for item in sets:
@@ -72,13 +72,15 @@ def simple_dict(sets:list):
     sets_data["U"] = universal_set
     return sets_data
 
+
 # @param sets_data simple dict
 # @return list with list of dictionaries
-def complex_dict(sets_data:dict) -> list:
+def complex_dict(sets_data: dict) -> list:
     list_sets = []
     for sets_name, sets_value in sets_data.items():
         list_sets.append({"setName": str(sets_name), "setValue": sets_value})
     return list_sets
+
 
 # @param {sets}: list of sets
 # @param {operations}: list of operations
