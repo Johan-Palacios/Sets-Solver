@@ -52,7 +52,7 @@ def validate_sets(sets: list):
 def validate_operation(operations: list) -> list:
     valid_operations = []
     for operation in operations:
-        if re.search(r"^([A-Z\-|\(\)&])+$", operation):
+        if re.search(r"^([A-Z\-|\(\)&\^])+$", operation):
             valid_operations.append(operation)
     return valid_operations
 
