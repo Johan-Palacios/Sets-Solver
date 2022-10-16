@@ -10,8 +10,35 @@ Solucionador de conjuntos con [Python](https://www.python.org/ "Python"), [Djang
 - Linux Distro o [WSL](https://learn.microsoft.com/es-es/windows/wsl/install "WSL")
 - Navegador (Chorme o MS Edge Chromium)
 
-### Build Project 📦
-1. Clonar el repositorio
-2. Ejecutar el make.py
-3. Ejecutar `python3 manage.py runserver` y abrir el enlace en el navegador 🌐
+### Construcción del proyecto 📦
+
+## Venv Python 🗃️
+
+1. Clonar el repositorio y entrar al repositorio
+2. Crear venv
+```bash
+python3 -m venv venv
+```
+3. Ejecutar Venv
+```bash
+source ./venv/bin/activate
+```
+4. Ejecutar el make.py
+5. Ejecutar `python3 manage.py runserver`
+6. Escribir en el navegador
+```bash
+localhost:8000
+```
+7. y listo! Ahora Podras disfutar esta exelente aplicación. ✅
+
+## Docker 🐋
+1. Clonar el repositorio y entrar al repositorio
+2. Ejectutar
+```bash
+docker compose up
+```
+3. Ir a
+```bash
+localhost:8000
+```
 4. y listo! Ahora Podras disfutar esta exelente aplicación. ✅
