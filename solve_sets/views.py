@@ -14,7 +14,7 @@ def usage(request):
 def sets(request):
     sets = request.GET.get("sets")
     operation = request.GET.get("sets_operation")
-    sets, operation, universal_set = solve_sets(str(sets), str(operation))
+    sets, operation = solve_sets(str(sets), str(operation))
     set_venn = graph_venn(sets)
     renderable = is_renderable(len(sets))
     return render(
@@ -23,7 +23,6 @@ def sets(request):
         {
             "set_solved": sets,
             "set_operations": operation,
-            "universal": universal_set,
             "set_venn": set_venn,
             "renderable": renderable,
         },

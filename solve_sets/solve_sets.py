@@ -12,8 +12,8 @@ def solve_sets(sets: str, operation: str):
     list_operations = item_to_lists(operation)
     list_sets = validate_sets(list_sets)
     list_operations = validate_operation(list_operations)
-    valid_operation, universal_set = operate_set(list_sets, list_operations)
-    return (list_sets, valid_operation, universal_set)
+    valid_operation, list_sets = operate_set(list_sets, list_operations)
+    return (list_sets, valid_operation)
 
 
 # @param {sets}: string of sets
@@ -57,6 +57,29 @@ def validate_operation(operations: list) -> list:
     return valid_operations
 
 
+# @param Sets list
+# @return simple dict of sets
+def simple_dict(sets:list):
+    sets_data = {}
+    universal_set = set()
+    for item in sets:
+        name = item.get("setName")
+        value = item.get("setValue")
+        if name in sets_data:
+            continue
+        sets_data[name] = value
+        universal_set = universal_set | value
+    sets_data["U"] = universal_set
+    return sets_data
+
+# @param sets_data simple dict
+# @return list with list of dictionaries
+def complex_dict(sets_data:dict) -> list:
+    list_sets = []
+    for sets_name, sets_value in sets_data.items():
+        list_sets.append({"setName": str(sets_name), "setValue": sets_value})
+    return list_sets
+
 # @param {sets}: list of sets
 # @param {operations}: list of operations
 # @returns a list of operable sets and correct operations and universal set
@@ -64,13 +87,8 @@ def operate_set(sets: list, operations: list):
     solved_operation = []
     set_operation = []
     sets_data = {}
-    universal_set = set([])
-    for item in sets:
-        name = item.get("setName")
-        value = item.get("setValue")
-        sets_data[name] = value
-        universal_set = universal_set | value
-    sets_data["U"] = universal_set
+    sets_data = simple_dict(sets)
+    list_sets = complex_dict(sets_data)
     for operation in operations:
         set_operation = ""
         for variable in operation:
@@ -92,7 +110,7 @@ def operate_set(sets: list, operations: list):
                     "operationValue": "Error: Verifique su operación",
                 }
             )
-    return (solved_operation, universal_set)
+    return (solved_operation, list_sets)
 
 
 if __name__ == "__main__":
